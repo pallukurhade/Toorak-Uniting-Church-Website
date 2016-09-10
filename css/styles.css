@@ -1,0 +1,793 @@
+/*
+Style order:
+
+display / position / overflow / float
+box model ( width, height, padding, margin, border, etc )
+effects (shadow, border radius, etc)
+colours / backgrounds
+typography
+animations / transitions
+*/
+
+/*=== SITEWIDE STYLES ===*/
+
+body { position: relative; }
+p{font-size: 14px;}
+/* Header */
+#header {
+	margin-bottom: 0; padding: 20px 0;
+	text-align: center;
+}
+#header > div {
+	display: inline-block; vertical-align: top;
+	width: 105px; padding-left: 5px; margin-left: 5px; margin-top: 14px; border-left: solid 1px #ed2324;
+	color: #505050;
+	font-size: 24px; font-weight: 600; line-height: 21px; text-transform: uppercase;
+}
+#header > div span {
+	color: #f13b2c;
+}
+#headerSmall {
+	background-color: #FFFFFF;
+	text-align: center;
+}
+#headerSmall img {
+	margin-top: 5px;
+}
+#headerSmall > div {
+	display: inline-block; vertical-align: top;
+	padding-left: 5px;
+	color: #505050;
+	font-size: 24px; font-weight: 600; line-height: 50px; text-transform: uppercase;
+}
+#headerSmall div span {
+	color: #f13b2c;
+}
+
+/* Nav */
+#nav {
+	box-shadow: 0 6px 12px rgba(0,0,0,.175); 
+	background-color: #FFFFFF;
+}
+#nav .navItem > .dropdown-menu {
+	z-index: 90;
+	min-width: 100%; margin-top: 0px; border: none;
+	border-radius: 0; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; box-shadow: 0 6px 12px rgba(0,0,0,.1);
+}
+#nav > .navbar {
+	margin-bottom: 0; border: 0;
+	border-radius: 0;
+	background-color: #f13b2c;
+}
+#nav.affix {
+	position: fixed; top: 0; z-index:100;
+	width: 100%;
+	z-index: 1000;
+}
+.navbar-form input, .form-inline input {
+	width:auto;
+}
+.nav {
+	display: table;
+	margin: 0 auto;
+}
+.nav > li {
+	display: table-cell;
+	z-index: 11;
+}
+.nav > li.open {
+	z-index: 10; /* Z-index must be 1 lower than .nav > li */
+}
+.nav > li > a {
+	padding: 15px 35px;
+	color: #FFF; 
+}
+.navbar-toggle {
+	margin: 0; border: none;
+}
+
+/* Nav animations */
+/* If the navbar is fixed to the top, unhide the small header and play animation */
+@-webkit-keyframes showSmallHeader {
+    from {top: -50px; height: 0;}
+    to {top: 0px; height: 50px;}
+}
+
+@keyframes showSmallHeader {
+	from {top: -50px; height: 0;}
+	to {top: 0px; height: 50px;}
+}
+
+@-webkit-keyframes removeSmallHeader {
+    from {top: 0; height: 50px; opacity: 1; }
+    to {top: -50px; height: 0; opacity: 0; }
+}
+
+@keyframes removeSmallHeader {
+	from {top: 0; height: 50px; opacity: 1; }
+	to {top: -50px; height: 0; opacity: 0; }
+}
+
+#headerSmall.inactive {
+	display: none;
+}
+#headerSmall.active {
+	display: block; -webkit-animation: showSmallHeader 0.25s ease-out; animation: showSmallHeader 0.25s ease-out;
+}
+#nav.transitioning #headerSmall {
+	-webkit-animation: removeSmallHeader 0.25s ease-out; animation: removeSmallHeader 0.25s ease-out;
+}
+#nav.transitioning {
+	position: absolute; top: 130px; left: 0; z-index: 100;
+	width: 100%;
+}
+
+/* Subscribe to newletter section */
+.newsletterSubscribe {
+	padding: 35px; margin-bottom: 35px;
+	background-color: #323232;
+	text-align: center;
+}
+.newsletterSubscribe h2 {
+	margin: 0 0 25px;
+	color: #FFF;
+}
+
+/* Footer nav */
+#footerNav > * {
+	float: left;
+	width: 14.285714285714285714285714285714%; margin-bottom: 35px;
+}
+#footerNav ul {
+	padding-left: 0;
+	list-style: none;
+}
+#footerNav ul li {
+	font-size: 14px;
+}
+#footerNav ul li:first-child {
+	margin-bottom: 10px;
+	font-weight: 700; text-transform: uppercase;
+}
+#footerNav a,
+#footerNav a:hover {
+	color: inherit;
+}
+.printButton {
+	text-align: right;
+}
+.printButton > a {
+	padding: 10px 15px 10px 45px; border: none;
+	background: #f6f6f6 url("../images/print_icon_sprite.png") 15px top no-repeat; color: #9f9f9f;
+	font-size: 13px;font-weight: 700;
+}
+.printButton > a:hover {
+	color: #9f9f9f;
+}
+.printButton > a:active {
+	background-image: url("../images/print_icon_sprite.png"); background-position: 15px bottom;
+}
+
+/* Footer */
+#footer {
+	width: 100%; padding: 10px 0; margin-bottom: 0;
+	background-color: #f6f6f6;
+	text-align: center;
+}
+#footer p {
+	margin: 0;
+}
+
+/* Retina versions of icons */
+@media 
+(-webkit-min-device-pixel-ratio: 1.5), 
+(min-resolution: 144dpi){
+    .printButton > a {
+    	background-image: url("../images/print_icon_sprite_retina.png"); background-size: 19px 76px;
+    }
+    .printButton > a:active {
+    	background-image: url("../images/print_icon_sprite_retina.png"); background-position: 15px bottom; background-size: 19px 76px;
+    }
+
+    .homepageInfoContent .location {
+    	background: url("../images/location_icon_retina.png") 4px center no-repeat; background-size: 11px 18px;
+    }
+    .homepageInfoContent .phone {
+    	background: url("../images/phone_icon_retina.png") left center no-repeat; background-size: 18px 18px;
+    }
+}
+
+/* Expand nav button */
+
+.nav-icon {
+  width: 24px;
+  height: 20px;
+  position: relative;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: .5s ease-in-out;
+  -moz-transition: .5s ease-in-out;
+  -o-transition: .5s ease-in-out;
+  transition: .5s ease-in-out;
+  cursor: pointer;
+  box-sizing: content-box;
+}
+
+.nav-icon div {
+	position: relative;
+}
+
+.nav-icon span {
+  display: block;
+  position: absolute;
+  height: 4px;
+  width: 100%;
+  background: #f13b2c;
+  opacity: 1;
+  left: 0;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: .25s ease-in-out;
+  -moz-transition: .25s ease-in-out;
+  -o-transition: .25s ease-in-out;
+  transition: .25s ease-in-out;
+}
+
+.nav-icon span:nth-child(1) {
+  top: 0px;
+  -webkit-transform-origin: left center;
+  -moz-transform-origin: left center;
+  -o-transform-origin: left center;
+  transform-origin: left center;
+}
+
+.nav-icon span:nth-child(2) {
+  top: 8px;
+  -webkit-transform-origin: left center;
+  -moz-transform-origin: left center;
+  -o-transform-origin: left center;
+  transform-origin: left center;
+}
+
+.nav-icon span:nth-child(3) {
+  top: 16px;
+  -webkit-transform-origin: left center;
+  -moz-transform-origin: left center;
+  -o-transform-origin: left center;
+  transform-origin: left center;
+}
+
+.nav-icon.open span:nth-child(1) {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  top: 0;
+  left: 0;
+}
+
+.nav-icon.open span:nth-child(2) {
+  width: 0%;
+  opacity: 0;
+}
+
+.nav-icon.open span:nth-child(3) {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  top: 17px;
+  left: 0;
+}
+
+/*=== HOMEPAGE SPECIFIC STYLES ===*/
+/* Carousel */
+#homepageHero {
+	background: black;
+	display: none;
+}
+#homepageHero > div {
+	position: relative;
+}
+.homepageHeroCaption {
+	position: absolute; left: 0; right: 0;
+	width: 100%; max-width: 1170px; margin: 0 auto;
+	border-radius: 3px;
+	background-color: rgba(0, 0, 0, 0.4); color: #FFFFFF;
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=1, StartColorStr='#66000000', EndColorStr='#66000000')";
+	filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=1, StartColorStr='#66000000', EndColorStr='#66000000');
+	zoom: 1!important;
+	text-align: center;
+}
+.homepageHeroCaption h1 {
+	margin: 10px 20px;
+	text-shadow: 0px 2px 1.96px rgba(0, 0, 0, 0.36);
+	color: #ffffff;
+	font-size: 80px; line-height: 86px;
+}
+.homepageHeroCaption .btn {
+	width: 165px; margin: 0 auto 20px;
+	font-size: 20px;
+}
+.homepageHeroSubheader {
+	padding: 42px 20px 47px; margin-bottom: 35px;
+	background-color: #f13b2c;
+}
+.homepageHeroSubheader h2 {
+	margin: 0;
+	color: #ffffff;
+}
+#homepageHero .captionTop {
+	top: 35px;
+}
+#homepageHero .captionMiddle {
+	bottom: 135px;
+}
+
+/* Featured Pages */
+#featuredPages [class^="col-"] {
+	margin-bottom: 35px;
+}
+.featuredPage {
+	border-radius: 3px;
+	background-color: #f6f6f6;
+}
+.featuredPage a > div {
+	padding:12px 20px 15px 20px;
+}
+.featuredPage a > div:first-child {
+	overflow: hidden; position: relative;
+	padding: 0;
+}
+.featuredPage a > div:first-child div {
+	display: none; position: absolute; top: 0; bottom: 0; left: 0; right: 0;
+	margin: 0;
+	background-color: rgba(255, 255, 255, 0.66);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=1, StartColorStr='#BFFFFFFF', EndColorStr='#BFFFFFFF')";
+	filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=1, StartColorStr='#BFFFFFFF', EndColorStr='#BFFFFFFF');
+	zoom: 1!important;
+}
+.featuredPage a > div:first-child h5 {
+	position: absolute; top: 50%; left: 50%;
+	width: 130px; height: 39px; margin: -20px -65px;
+	color: #f13b2c;
+	font-size: 18px; text-align: center;
+}
+.ghostButton {
+	border: 1px solid #f13b2c;
+	background-color: transparent;
+}
+.ghostButton:hover {
+	background-color: #f13b2c;
+	color: #FFFFFF !important;
+}
+.featuredPage a > div > h5 {
+	margin-top: 0;
+	text-align: center; font-weight: bold;
+}
+.featuredPage a > div > p {
+	margin-bottom: 0;
+}
+.featuredPage a,
+.featuredPage a:hover {
+	color: inherit;
+	text-decoration: none;
+}
+.featuredPage img {
+	width: 100%;
+	border-top-left-radius: 3px;  border-top-right-radius: 3px;. -webkit-transition: all .25s ease; -moz-transition: all .25s ease; -o-transition: all .25s ease; -ms-transition: all .25s ease;  transition: all .25s ease;
+}
+
+/* Homepage "I'm new" section */
+.homepageImNew {
+	background-color: #f6f6f6; padding: 35px 10px; text-align: center; margin-bottom: 35px;
+}
+.homepageImNew h2 {
+	margin: 0 0 20px;
+}
+.homepageImNew .btn {
+	width: 275px; margin: 0 auto;
+}
+
+/* Homepage info section */
+#homepageInfo {
+	width: 100%; padding-top: 35px; margin-bottom: 35px;
+	background-color: #f6f6f6;
+}
+.homepageInfoContainer {
+	position: relative;
+}
+.homepageInfoContainer .blockHeading {
+	position: absolute; top: 0;
+	width: 100%; padding: 5px 10px;
+	background-color: #505050; color: #fff;
+	font-size: 18px; font-weight: 600;
+}
+.homepageInfoContainer > .btn {
+	position: absolute; bottom: 0;
+}
+.homepageInfoContainer h5,
+.homepageInfoContainer .h5 {
+	margin: 0 0 5px 0;
+	color: #3e3e3e;
+	font-weight: 600; 
+}
+.homepageInfoContainer img {
+	width: 100%;
+	border-radius: 3px;
+}
+.homepageInfoContent {
+	width: 100%;
+	padding: 55px 10px 66px; /* Padding based off 20px top + height of blockheading / 20px bottom + height of button */
+} 
+.homepageInfoContent img:first-child {
+	margin-bottom: 10px;
+}
+.homepageInfoContent .location,
+.homepageInfoContent .phone {
+	padding-left: 30px; margin: 10px 0;
+	font-weight: 300;
+}
+.homepageInfoContent .location {
+	background: url("../images/location_icon.png") 4px center no-repeat;
+}
+.homepageInfoContent .phone {
+	margin-bottom: 15px;
+	background: url("../images/phone_icon.png") left center no-repeat; 
+}
+.homepageInfoContent > p {
+	margin: -2px 0 35px;
+}
+.homepageInfoContent table {
+	width: 100%;
+}
+.homepageInfoContent table td {
+	min-width: 80px;
+	color: #505050;
+	font-weight: 300;
+}
+.homepageInfoContent table td[rowspan="2"] {
+	vertical-align: top;
+}
+.homepageInfoContent table th .h5 {
+	margin-top: 10px;
+	display: block;
+}
+.homepageInfoContent table td,
+.homepageInfoContent table th {
+	padding: 0 10px; margin-bottom: 5px; 
+}
+.homepageInfoContent table tr.borderBottom {
+	border-bottom: solid 1px #d0d0d0;
+}
+.homepageInfoContent table tr.borderBottom td {
+	padding-bottom: 12px;
+}
+.homepageInfoContent table tr.borderBottom + tr td {
+	padding-top: 10px;
+}
+.homepageInfoContent #map-canvas {
+	width: 100%; padding: 35% 0;
+	border-radius: 3px;
+}
+
+
+/*Wedding Directory Page*/
+.weddingdirectorypagefacility h3{color:#f13b2c;text-align: center;}
+.featuredwedding{padding:0px 8px 0px 8px;}
+.weddingdirectorypageInfoContainer .btn-lg{font-size: 14px;text-align: center;padding:16px;text-decoration: none;}
+.weddingdirectorypagefacility{padding:20px 225px;}
+.weddingdirectorypagefacility p{text-align: center;padding:12px 12px 18px 20px;}
+#weddingdirectorypageInfo{padding:0px 60px 90px 60px;}
+.weddingdirectoryfacilitydetails{padding:0px 100px 0px 100px;}
+
+
+.weddingcontentpageInfoImage img{padding:15px 0px 0px 0px;}
+.weddingcontentpagedescriptionContainer{padding:30px 50px 60px 50px;}
+.weddingcontentpageInfoContent h4{color:#f13b2c; }
+.weddingcontentpageInfoContent p{padding:0px 0px 0px 0px;}
+.weddingcontentpageInfo{padding:0px 0px 0px 0px;}
+.weddingcontentpagepackagesbutton a{text-align: center;}
+.norightpadding{padding-right: 0px;}
+.weddingcontentpagepackagesbutton{padding:40px 50px 30px 50px;background-color:#393939;}
+.noleftpadding{padding-left: 0px;}
+.weddingcontentpagedetails{background-color: #f13b2c;color:#ffffff;padding:30px 20px 33px 88px;}
+.arrowbullet li{padding:15px 0px 0px 15px;background-image:url('../images/packagebullets.gif');  background-repeat: no-repeat;background-position: 0px 20px;text-indent: 22px;}
+.arrowbullet{padding:20px 0px 0px 20px;list-style-type: none;}
+
+/*=== SCREEN SPECIFIC STYLES ===*/
+/* Small mobile */
+@media (  background-repeat: no-repeat;background-position: 0px 4px;text-indent: 22px;max-width: 480px) { 
+	#featuredPages div[class^="col-"] {
+		width: 100%;
+	}
+
+	#footerNav > * {
+		width: 50% !important;
+		padding-right: 15px;
+	}
+	#footerNav > *:nth-child(even) {
+		padding-right: 0;
+	}
+	#footerNav ul {
+		min-height: 90px;
+	}
+	.printButton {
+		clear: both;
+		text-align: left;
+	}
+	#weddingdirectorypageInfo{padding:0px 0px 0px 0px;}
+}
+
+/* Mobile (e.g. iPhone) */
+@media (max-width: 640px) {
+	#homepageInfo div[class^="col-"] {
+		width: 100%;
+	}
+}
+
+/* Tablet */
+@media (max-width: 767px) {
+	#header .navbar-toggle {
+		padding: 35px 15px;
+	}
+	#headerSmall {
+		padding-right: 0;
+	}
+	#headerSmall div {
+		font-size: 18px;
+	}
+	#headerSmall img {
+		width: 30px; height: 30px; margin-top: 10px;
+	}
+
+	.homepageHeroCaption,
+	.slick-dots {
+		display: none !important;
+	}
+	.homepageHeroSubheader {
+		padding: 35px;
+	}
+	.homepageHeroSubheader h2,
+	.newsletterSubscribe h2,
+	.homepageImNew h2 {
+		font-size: 24px;
+	}
+	
+	#nav > .navbar {
+		min-height: 5px; border-bottom: solid 5px #f13b2c; 
+		background-color: #FFFFFF;
+	}
+	#nav-wrapper {
+		height: auto !important;
+	}
+	.nav {
+		display: block; 
+	}
+	.nav > li {
+		display: block; 
+	}
+	.nav > li.navItem > a {
+		padding: 15px 35px;
+		color: #323232; 
+	}
+	.nav > li.navItem > a:hover {
+		background-color: #f6f6f6; 
+	}
+	.nav > li.navItem.open {
+		background-color: #ffffff; 
+	}
+	.nav > li.navItem.open > a {
+		background-color: inherit; color: #f13b2c;
+	}
+	.nav > li.navItem.open .dropdown-menu {
+		box-shadow: none !important; 
+	}
+	.nav > li.navItem.open .dropdown-menu > li > a {
+		padding: 15px 50px; 
+		color: #323232;
+	}
+	.nav > li.navItem.open .dropdown-menu > li > a:focus,
+	.nav > li.navItem.open .dropdown-menu > li > a:hover {
+		background-color: #f6f6f6; 
+	}	
+	.nav-icon {
+		padding: 15px; 
+	}
+	.navbar-collapse {
+		padding: 0; border-top: 0; 
+	}
+	.nav .open .dropdown-menu {
+		position: static; float: none;
+		width: auto; margin-top: 0; padding: 0; border: 0;
+		-webkit-box-shadow: none; box-shadow: none;
+		background-color: transparent;
+	}
+
+	#footerNav > * {
+		width: 33.3333333333%; padding-right: 15px;
+	}
+	#footerNav > *:nth-child(3n+3) {
+		padding-right: 0;
+	}
+	.printButton {
+		clear: both;
+		text-align: left; 
+	}
+	.weddingcontentpageInfoImage img{padding:0px 0px 0px 0px;}
+	.weddingcontentpagedetails{padding:10px 0px 0px 8px;}
+	.weddingcontentpagedetails h4{margin-top:0px;}
+	.arrowbullet li {padding: 5px 0px 0px 5px;background-position: 0px 8px;}
+	.weddingcontentpagedescriptionContainer{padding:20px 50px 20px 50px;}
+	
+}
+
+/* Larger tablets only */
+@media (min-width: 768px) and (max-width: 991px) { 
+	.nav > li > a {
+		padding: 15px 7px;
+	}
+	#nav > .navbar > .container-fluid,
+	#nav > .navbar > .container-fluid > div { 
+		padding: 0;
+	}
+	
+	.homepageHeroCaption h1 {
+		margin: 10px 20px;
+		font-size: 32px; line-height: 42px; 
+	}
+	.homepageHeroCaption .btn { 
+		width: 165px; margin: 0 auto 20px;
+		font-size: 18px; 
+	}
+	#homepageHero .captionTop { 
+		top: 20px; 
+	}
+	#homepageHero .captionMiddle { 
+		bottom: 55px; 
+	}
+	ul.slick-dots { 
+		margin-bottom: 20px; 
+	}
+
+	#footerNav > * { 
+		width: 25%; padding-right: 15px;
+	}
+	#footerNav > *:nth-child(4n+4) {
+		padding-right: 0;
+	}
+	.printButton { 
+		text-align: left;
+	}
+}
+
+/* Larger tablets */
+
+@media (max-width: 991px) {
+	.featuredPage a > div > p {
+		margin-bottom: 20px;
+	}
+	.featuredPage .linkHint {
+		position: absolute; bottom: 10px;
+		color: #f13b2c;
+	}
+	#homepageInfo .row > div {
+		margin-bottom: 35px;
+	}
+	#homepageInfo .row > div:first-child img:first-child {
+		display: none;
+	}
+	.homepageInfoContent table tr:first-child h5 {
+		margin-top: 0;
+	}
+	.homepageInfoContainer.noMinHeight { 
+		min-height: 0 !important; 
+	}
+}
+
+/* Small desktops and above */
+@media (min-width: 992px) { 
+
+	#homepageInfo {
+		padding-bottom: 35px;
+	}
+		
+	.featuredPage .linkHint {
+		display: none;
+	}
+	.featuredPage a:hover {
+		cursor: pointer; cursor: hand;
+	}
+	.featuredPage a:hover img {
+		transform: scale(1.05); -webkit-filter: blur(1px);
+	}
+	.featuredPage a:hover > div:first-child div {
+		display: block;
+		/*background-image: url('../images/link.png'); background-position: center center; background-repeat: no-repeat;*/
+		-webkit-transition: all .25s ease; -moz-transition: all .25s ease; -o-transition: all .25s ease; -ms-transition: all .25s ease;  transition: all .25s ease;
+	}
+	
+	.newsletterSubscribe .input-group input { 
+		height: 61px;padding: 18px 0 19px 20px;
+		font-size: 20px; font-weight: 300; 
+	}
+	.newsletterSubscribe .input-group button { 
+		height: 61px;padding: 20px 45px;
+		font-size: 20px; line-height: 0; 
+	}
+	.newsletterSubscribe .input-group button:focus { 
+		outline: none;
+		background-color: #f13b2c; border-color: #ef2514; 
+	}
+	.newsletterSubscribe .input-group { 
+		max-width: 66%; margin: 0 auto; 
+	}
+
+	#footerNav > * { 
+		padding-right: 15px;
+	}
+	#footerNav > *:nth-child(7) {
+		padding-right: 0;
+	}
+}
+
+/* Small desktops */
+@media (min-width: 992px) and (max-width: 1299px) {
+	.customMaxWidth { 
+		max-width: 1040px; 
+	}
+	.nav > li > a { 
+		padding: 15px 20px; 
+	}
+
+	.homepageHeroCaption h1 { 
+		margin: 10px 20px; 
+		font-size: 50px; line-height: 56px; 
+	}
+	.homepageHeroCaption .btn { 
+		width: 165px; margin: 0 auto 20px; 
+		font-size: 20px; 
+	}
+	#homepageHero .captionTop { 
+		top: 35px; 
+	}
+	#homepageHero .captionMiddle { 
+		bottom: 100px; 
+	}
+
+	.homepageInfoContent > p { 
+		margin-bottom: 14px; 
+	}
+
+
+}
+
+/* Not a large desktop */
+@media (max-width: 1299px) {
+	.customMaxWidth { 
+		max-width: 1040px; 
+	}
+	.caret { 
+		display: none; 
+	}
+
+	.homepageHeroCaption { 
+		width: auto; margin: 0 35px; 
+	}
+	.weddingdirectorypagefacility{padding:0px 0px 0px 0px;}
+	.weddingdirectoryfacilitydetails {padding: 0px 0px 0px 0px; }
+	.featuredwedding {padding: 0px 8px 8px 8px;}
+	}
+
+/* Large desktops */
+@media (min-width: 1300px) {
+	.customMaxWidth { 
+		max-width: 1300px; 
+
+	}
+}	
+
